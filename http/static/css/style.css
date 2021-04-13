@@ -45,18 +45,37 @@ h3 {
     }
 
  div.form {
-background-color:silver;
+margin-left: auto;
+margin-right: auto;
+background-color:#FFF982;
 text-align: left;
 padding: 5px;
 border-radius: 10px;
-border-color: rgb(71, 71, 71);
-border: 2px solid rgb(82, 81, 81)
+border-color: #D7D161;
+border: 2px solid #D7D161
     }
 
 .btn-primary{
-        background-color: rgb(72, 81, 90);
-        border-color: rgb(72, 81, 90);;
+        background-color: #DDFC80;
+        border-color: #6e803a;
+        color: black;
     }
+.btn-success{
+        background-color: #f7d756;
+        border-color: rgb(107, 93, 35);
+        color: black;
+}
+
+a.btn-primary:hover{
+    background-color: #80A21C;
+    border-color: #5d7515;
+}
+a.btn-success:hover{
+    background-color:#A6891C;
+    border-color: #7c6614;
+}
+
+
 p {
         margin-top: auto;
     }
@@ -123,4 +142,8 @@ div.actionLabel>a{
     height:40px;
     text-align: center;
     vertical-align: middle;
+}
+
+header{
+    background-color: #FFF982;
 }
