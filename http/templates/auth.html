@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2">
+            <img src="/static/data/logo.png">
+        </div>
+        <div class="col-sm-6">
+            <h1>Аварийный доступ</h1>
+        </div>
+    </div>
+</div>
+
+
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.astronaut_id.label }}<br>
+        {{ form.astronaut_id(class="form-control") }}<br>
+        {% for error in form.astronaut_id.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form.astronaut_password.label }}<br>
+        {{ form.astronaut_password(class="form-control", type="password") }}<br>
+        {% for error in form.astronaut_password.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form.captain_id.label }}<br>
+        {{ form.captain_id(class="form-control") }}<br>
+        {% for error in form.captain_id.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form.captain_password.label }}<br>
+        {{ form.captain_password(class="form-control", type="password") }}<br>
+        {% for error in form.captain_password.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+</form>
+{% endblock %}

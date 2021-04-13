@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .space {
+    text-align: center;
+    padding: 20px; /* Поля */
+    background: silver; /* Цвет фона */
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+   }
+table{
+       margin: auto;
+   }
+
+h2 {
+       text-align: center;
+   }
+
+.regular {
+       background-color: aliceblue;
+   }
+
+h3 {
+       text-align: left;
+   }
+
+.yes {
+       background-color: rgba(10, 190, 100, 0.404);
+    }
+.no{
+        background-color: rgba(196, 16, 16, 0.39);
+    }
+.activity {
+        width: 530px;
+    }
+.mate {
+        width: 150px;
+    }
+
+.dur {
+        width: 50px;
+    }
+
+.helps {
+        width: 100px;
+    }
+
+ div.form {
+background-color:silver;
+text-align: left;
+padding: 5px;
+border-radius: 10px;
+border-color: rgb(71, 71, 71);
+border: 2px solid rgb(82, 81, 81)
+    }
+
+.btn-primary{
+        background-color: rgb(72, 81, 90);
+        border-color: rgb(72, 81, 90);;
+    }
+p {
+        margin-top: auto;
+    }
+div.label {
+        border: 2px solid grey;
+        background-color: white;
+        width: auto;
+        min-width: 150px;
+        border-radius: 10px;
+        text-align: center;
+        display: inline-block;
+        vertical-align: middle;
+        margin-bottom: 2px;
+    }
+
+th {
+    text-align: center;
+    }
+
+td {
+    text-align: center;
+    }
+
+h1.header{
+    color: black;
+}
+
+
+nav.login_buttons{
+    right: 5px;
+    top: 5px;
+}
+.flex {
+    display: flex;
+    justify-content: center;
+  }
+
+header.container{
+    max-width: 1920px;
+}
+
+.header_td{
+    text-align: left;
+}
+
+a.btn-warning {
+    display: table-cell;
+    padding: 10px;
+}
+a {
+    text-decoration: none;
+}
+
+a.btn-danger {
+    display: table-cell;
+}
+
+div.actionLabel>a, div.actionLabel>h3{
+    float: left;
+    margin-right: 5px;
+}
+div.actionLabel>a{
+    padding-top: 5px;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+}
+</style>
+<form action="" method="post">
+<div class="form">
+    {{ form.hidden_tag() }}
+    <p>
+    <div class='label'>{{ form.job.label }}</div>
+    <br>
+    {{ form.job(class="form-control") }}<br>
+    {% for error in form.job.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    
+    <p>
+    <div class='label'>{{ form.work_size.label }}</div>
+    <br>
+    {{ form.work_size(class="form-control") }}<br>
+    {% for error in form.work_size.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    
+    <p>
+    <div class='label'>{{ form.collaborators.label }}</div>
+    <br>
+    {{ form.collaborators(class="form-control") }}<br>
+    {% for error in form.collaborators.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    
+    <div class='label'>{{ form.is_finished.label }}</div>
+    {{ form.is_finished}}<br>
+    {% for error in form.is_finished.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    
+
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}
+    {% if message %}
+    <div class="alert alert-danger" role="alert">{{message}}</div>
+    {% endif %}
+</div>
+</form>
+{% endblock %}
