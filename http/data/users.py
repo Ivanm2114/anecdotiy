@@ -13,16 +13,16 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
-    login = sqlalchemy.Column(sqlalchemy.String)
+    login = sqlalchemy.Column(sqlalchemy.String, unique=True)
     surname = sqlalchemy.Column(sqlalchemy.String)
     name = sqlalchemy.Column(sqlalchemy.String)
     admin = sqlalchemy.Column(sqlalchemy.Boolean)
     hashed_password = sqlalchemy.Column(sqlalchemy.String)
     modified_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                       default=datetime.datetime.now)
-    rating = sqlalchemy.Column(sqlalchemy.Integer)
+    rating = sqlalchemy.Column(sqlalchemy.Integer, default=0)
 
-    anecdoties = orm.relation('Anecdotiy', back_populates='author')
+    anecdoties = orm.relation('Anecdotiy', back_populates='creator')
 
     def __repr__(self):
         return f"<Author> {self.id} {self.surname} {self.name}"

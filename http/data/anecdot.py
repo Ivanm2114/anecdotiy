@@ -17,10 +17,10 @@ class Anecdotiy(SqlAlchemyBase, SerializerMixin):
     rating = sqlalchemy.Column(sqlalchemy.Integer)
     likes_and_dislikes = sqlalchemy.Column(sqlalchemy.String)
 
-    leader = orm.relation('User')
+    creator = orm.relation('User')
     categories = orm.relation("Genre",
                               secondary="association",
                               backref="Anecdotiy")
 
     def __repr__(self):
-        return f'<Job> {self.job}'
+        return f'<Anecdot> {self.name}'

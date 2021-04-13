@@ -55,56 +55,14 @@
     {% endfor %}
     </p>
     <p>
-    <div class='label'>{{ form.Age.label }}</div>
-    <br>
-    {{ form.Age(class="form-control") }}<br>
-    {% for error in form.Age.errors %}
+    <div class='label'>{{ form.Admin.label }}</div>
+    {{ form.Admin}}<br>
+    {% for error in form.Admin.errors %}
     <div class="alert alert-danger" role="alert">
         {{ error }}
     </div>
     {% endfor %}
     </p>
-    <p>
-    <div class='label'>{{ form.Position.label }}</div>
-    <br>
-    {{ form.Position(class="form-control") }}<br>
-    {% for error in form.Position.errors %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
-    </div>
-    {% endfor %}
-    </p>
-    <p>
-    <div class='label'>{{ form.Speciality.label }}</div>
-    <br>
-    {{ form.Speciality(class="form-control") }}<br>
-    {% for error in form.Speciality.errors %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
-    </div>
-    {% endfor %}
-    </p>
-    <p>
-    <div class='label'>{{ form.Address.label }}</div>
-    <br>
-    {{ form.Address(class="form-control") }}<br>
-    {% for error in form.Address.errors %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
-    </div>
-    {% endfor %}
-    </p>
-    <p>
-        <div class='label'>{{ form.Hometown.label }}</div>
-        <br>
-        {{ form.Hometown(class="form-control") }}<br>
-        {% for error in form.Hometown.errors %}
-        <div class="alert alert-danger" role="alert">
-            {{ error }}
-        </div>
-        {% endfor %}
-        </p>
-        
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {% if message %}
     <div class="alert alert-danger" role="alert">{{message}}</div>
