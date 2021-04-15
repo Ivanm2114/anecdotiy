@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class='form'>
+    <form class="login_form" method="post">
+<div class="form-group">
+    <label for="about">Текст анекдота</label>
+    <textarea class="form-control" style="height: 500px; width: 100%;" id="text" rows="3" name="text"></textarea>
+</div>
+<button type="submit" class="btn btn-primary" style="background-color: #FFE982;">Добавить</button>
+</form>
+</div>
+
+{% endblock %}

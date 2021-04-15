@@ -1,7 +1,17 @@
 .space {
     text-align: center;
     padding: 20px; /* Поля */
-    background: silver; /* Цвет фона */
+    background: #FFA357; /* Цвет фона */
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+   }
+
+.gather {
+    text-align: left;
+    padding: 20px; /* Поля */
+    background: #FFE1A4; /* Цвет фона */
     border-radius: 20px;
     margin-top: 20px;
     margin-left: auto;
@@ -47,7 +57,7 @@ h3 {
  div.form {
 margin-left: auto;
 margin-right: auto;
-background-color:#FFF982;
+background-color:#FFE1A4;
 text-align: left;
 padding: 5px;
 border-radius: 10px;
@@ -56,23 +66,23 @@ border: 2px solid #D7D161
     }
 
 .btn-primary{
-        background-color: #DDFC80;
-        border-color: #6e803a;
+        background-color: #FFE982;
+        border-color: #a57650;
         color: black;
     }
 .btn-success{
-        background-color: #f7d756;
-        border-color: rgb(107, 93, 35);
+        background-color: #FFBA82;
+        border-color: #ca9468;
         color: black;
 }
 
 a.btn-primary:hover{
-    background-color: #80A21C;
-    border-color: #5d7515;
+    background-color: #c2712f;
+    border-color: #442f1d;
 }
 a.btn-success:hover{
-    background-color:#A6891C;
-    border-color: #7c6614;
+    background-color:#975a29;
+    border-color: #72521a;
 }
 
 
@@ -136,6 +146,7 @@ a.btn-danger {
 div.actionLabel>a, div.actionLabel>h3{
     float: left;
     margin-right: 5px;
+    text-align: left;
 }
 div.actionLabel>a{
     padding-top: 5px;
@@ -144,10 +155,35 @@ div.actionLabel>a{
     vertical-align: middle;
 }
 
+div.actionLabel{
+    text-align: left;
+    max-width: 200px;
+    padding: 20px; /* Поля */
+    background: #FFC757; /* Цвет фона */
+    border-radius: 20px;
+    margin-left: 5px;
+    margin-top: 20px;
+}
+
 header{
-    background-color: #FFF982;
+    background-color: #FFE1A4;
 }
 
 body {
-    background-color: #A6A01C;
+    background-color: white;
+}
+
+.line{
+    margin-top: 5px;
+display: flex;
+}
+
+.auth {
+    width: 35%;
+    text-align: left;
+}
+
+.not_auth {
+    width: 70%;
+    text-align: left;
 }

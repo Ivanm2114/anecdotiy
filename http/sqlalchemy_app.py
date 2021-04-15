@@ -11,7 +11,6 @@ from data import db_session
 from data.anecdot import Anecdotiy
 from data.users import User
 from forms.user import RegisterForm, LoginForm
-from forms.jobs import CreateJob, EditJob
 from forms.departments import CreateDepartment, EditDepartment
 
 app = Flask(__name__)
@@ -87,58 +86,48 @@ def logout():
     return redirect("/")
 
 
-@app.route('/addjob', methods=['GET', 'POST'])
+@app.route('/addanecdot', methods=['GET', 'POST'])
 def add_job():
-    form = CreateJob()
-    db_sess = db_session.create_session()
-    if form.validate_on_submit():
-        job = Jobs(
-            team_leader=form.team_leader.data,
-            job=form.job.data,
-            work_size=form.work_size.data,
-            collaborators=form.collaborators.data,
-            is_finished=form.is_finished.data
-
-        )
-        db_sess.add(job)
+    if request.method == 'GET':
+        return render_template('addanecdot.html', title='Добавление анекдота')
+    elif request.method == 'POST':
+        db_sess = db_session.create_session()
+        text = request.form['text']
+        anecdot = Anecdotiy()
+        anecdot.text = text
+        anecdot.author = current_user.id
+        db_sess.add(anecdot)
         db_sess.commit()
         return redirect('/')
-    return render_template('create_job.html', title='Добавление работы', form=form)
 
 
-@app.route('/deletejob/<int:id>', methods=['GET', 'POST'])
+@app.route('/deleteanecdot/<int:id>', methods=['GET', 'POST'])
 def delete_job(id):
     db_sess = db_session.create_session()
-    if db_sess.query(Jobs).filter(id == Jobs.id).first():
-        job = db_sess.query(Jobs).filter(id == Jobs.id).first()
-        db_sess.delete(job)
+    if db_sess.query(Anecdotiy).filter(id == Anecdotiy.id).first():
+        anecdot = db_sess.query(Anecdotiy).filter(id == Anecdotiy.id).first()
+        db_sess.delete(anecdot)
         db_sess.commit()
         return redirect('/')
 
 
-@app.route('/editjob/<int:id>', methods=['GET', 'POST'])
+@app.route('/editanecdot/<int:id>', methods=['GET', 'POST'])
 def edit_job(id):
-    form = EditJob()
     db_sess = db_session.create_session()
-    if db_sess.query(Jobs).filter(id == Jobs.id).first():
-        job = db_sess.query(Jobs).filter(id == Jobs.id).first()
-        if form.validate_on_submit():
-            if current_user.id == 1 or current_user.id == job.team_leader:
-                job.job = form.job.data
-                job.work_size = form.work_size.data
-                job.collaborators = form.collaborators.data
-                job.is_finished = form.is_finished.data
-                db_sess.commit()
-                return redirect('/')
-            else:
-                return render_template('edit_job.html', title='Изменение', form=form,
-                                       message='У пользователя нет доступа')
-
-        form.job.data = job.job
-        form.work_size.data = job.work_size
-        form.collaborators.data = job.collaborators
-        form.is_finished.data = job.is_finished
-        return render_template('edit_job.html', title='Изменение', form=form)
+    if db_sess.query(Anecdotiy).filter(Anecdotiy.id == id).first():
+        anecdot = db_sess.query(Anecdotiy).filter(Anecdotiy.id == id).first()
+        if request.method == 'GET':
+            request.form['text'] = anecdot.text
+            return render_template('editanecdot.html', title='Добавление анекдота')
+        elif request.method == 'POST':
+            db_sess = db_session.create_session()
+            text = request.form['text']
+            anecdot = Anecdotiy()
+            anecdot.text = text
+            anecdot.author = current_user.id
+            db_sess.add(anecdot)
+            db_sess.commit()
+            return redirect('/')
     else:
         abort(404)
 
@@ -187,10 +176,10 @@ def edit_dep(id):
         abort(404)
 
 
-@app.route('/departments')
-def deps():
+@app.route('/main')
+def all_anec():
     db_sess = db_session.create_session()
-    return render_template('departments.html', deps=db_sess.query(Department).all())
+    return render_template('anecdotiy.html', title='Все анекдоты', anecdotiy=db_sess.query(Anecdotiy).all())
 
 
 if __name__ == '__main__':

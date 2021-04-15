@@ -11,11 +11,11 @@ class Anecdotiy(SqlAlchemyBase, SerializerMixin):
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
-    name = sqlalchemy.Column(sqlalchemy.String)
     text = sqlalchemy.Column(sqlalchemy.String)
     author = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('Users.id'))
-    rating = sqlalchemy.Column(sqlalchemy.Integer)
-    likes_and_dislikes = sqlalchemy.Column(sqlalchemy.String)
+    rating = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    likes = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    dislikes = sqlalchemy.Column(sqlalchemy.Integer, default=0)
 
     creator = orm.relation('User')
     categories = orm.relation("Genre",
