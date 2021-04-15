@@ -1,11 +1,210 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+    .space {
+    text-align: center;
+    padding: 20px; /* Поля */
+    background: #FFA357; /* Цвет фона */
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+   }
+
+.gather {
+    text-align: left;
+    padding: 20px; /* Поля */
+    background: #FFE1A4; /* Цвет фона */
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+   }
+table{
+       margin: auto;
+   }
+
+h2 {
+       text-align: center;
+   }
+
+.regular {
+       background-color: aliceblue;
+   }
+
+h3 {
+       text-align: left;
+   }
+
+.yes {
+       background-color: rgba(10, 190, 100, 0.404);
+    }
+.no{
+        background-color: rgba(196, 16, 16, 0.39);
+    }
+.activity {
+        width: 530px;
+    }
+.mate {
+        width: 150px;
+    }
+
+.dur {
+        width: 50px;
+    }
+
+.helps {
+        width: 100px;
+    }
+
+ div.form {
+margin-left: auto;
+margin-right: auto;
+background-color:#FFE1A4;
+text-align: left;
+padding: 5px;
+border-radius: 10px;
+border-color: #D7D161;
+border: 2px solid #D7D161
+    }
+
+.btn-primary{
+        background-color: #FFE982;
+        border-color: #a57650;
+        color: black;
+    }
+.btn-success{
+        background-color: #FFBA82;
+        border-color: #ca9468;
+        color: black;
+}
+
+a.btn-primary:hover{
+    background-color: #c2712f;
+    border-color: #442f1d;
+}
+a.btn-success:hover{
+    background-color:#975a29;
+    border-color: #72521a;
+}
+
+a.login-text {
+color: black;
+
+}
+
+p {
+        margin-top: auto;
+    }
+div.label {
+        border: 2px solid grey;
+        background-color: white;
+        width: auto;
+        min-width: 150px;
+        border-radius: 10px;
+        text-align: center;
+        display: inline-block;
+        vertical-align: middle;
+        margin-bottom: 2px;
+    }
+
+th {
+    text-align: center;
+    }
+
+td {
+    text-align: center;
+    }
+
+h1.header{
+    color: black;
+}
+
+
+nav.login_buttons{
+    right: 5px;
+    top: 5px;
+}
+.flex {
+    display: flex;
+    justify-content: center;
+  }
+
+header.container{
+    max-width: 1920px;
+}
+
+.header_td{
+    text-align: left;
+}
+
+a.btn-warning {
+    display: table-cell;
+    padding: 10px;
+}
+a {
+    text-decoration: none;
+}
+
+a.btn-danger {
+    padding: 10px;
+    display: table-cell;
+}
+
+div.actionLabel>a, div.actionLabel>h3{
+    float: left;
+    margin-right: 5px;
+    text-align: left;
+}
+div.actionLabel>a{
+    padding-top: 5px;
+    height:40px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+div.actionLabel{
+    text-align: left;
+    max-width: 200px;
+    padding: 20px; /* Поля */
+    background: #FFC757; /* Цвет фона */
+    border-radius: 20px;
+    margin-left: 5px;
+    margin-top: 20px;
+}
+
+header{
+    background-color: #FFE1A4;
+}
+
+body {
+    background-color: white;
+}
+
+.line{
+    margin-top: 5px;
+display: flex;
+}
+
+.auth {
+    width: 35%;
+    text-align: left;
+}
+
+.not_auth {
+    width: 70%;
+    text-align: left;
+}
+</style>
 <div class='form'>
     <form class="login_form" method="post">
 <div class="form-group">
     <label for="about">Текст анекдота</label>
-    <textarea class="form-control" style="height: 500px; width: 100%;" id="text" rows="3" name="text"></textarea>
+    <textarea class="form-control" style="height: 500px; width: 100%;" id="text" rows="3" name="text">
+{%for line in text%}{{line}}
+ {%endfor%}
+    </textarea>
 </div>
 <button type="submit" class="btn btn-primary" style="background-color: #FFE982;">Добавить</button>
 </form>

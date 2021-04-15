@@ -87,13 +87,14 @@ def logout():
 
 
 @app.route('/addanecdot', methods=['GET', 'POST'])
-def add_job():
+def add_anec():
     if request.method == 'GET':
         return render_template('addanecdot.html', title='Добавление анекдота')
     elif request.method == 'POST':
         db_sess = db_session.create_session()
         text = request.form['text']
         anecdot = Anecdotiy()
+        text = ';'.join(text.split('\n'))
         anecdot.text = text
         anecdot.author = current_user.id
         db_sess.add(anecdot)
@@ -102,7 +103,7 @@ def add_job():
 
 
 @app.route('/deleteanecdot/<int:id>', methods=['GET', 'POST'])
-def delete_job(id):
+def delete_anec(id):
     db_sess = db_session.create_session()
     if db_sess.query(Anecdotiy).filter(id == Anecdotiy.id).first():
         anecdot = db_sess.query(Anecdotiy).filter(id == Anecdotiy.id).first()
@@ -112,74 +113,96 @@ def delete_job(id):
 
 
 @app.route('/editanecdot/<int:id>', methods=['GET', 'POST'])
-def edit_job(id):
+def edit_anec(id):
     db_sess = db_session.create_session()
     if db_sess.query(Anecdotiy).filter(Anecdotiy.id == id).first():
         anecdot = db_sess.query(Anecdotiy).filter(Anecdotiy.id == id).first()
         if request.method == 'GET':
-            request.form['text'] = anecdot.text
-            return render_template('editanecdot.html', title='Добавление анекдота')
+            text = anecdot.text.split(';')
+            return render_template('editanecdot.html', title='Добавление анекдота', text=text)
         elif request.method == 'POST':
             db_sess = db_session.create_session()
             text = request.form['text']
-            anecdot = Anecdotiy()
+            text = ';'.join(text.split('\n'))
             anecdot.text = text
-            anecdot.author = current_user.id
-            db_sess.add(anecdot)
             db_sess.commit()
             return redirect('/')
     else:
         abort(404)
 
-
-@app.route('/adddepartment', methods=['GET', 'POST'])
-def add_dep():
-    form = CreateDepartment()
+@app.route('/addlike/<int:id>')
+def put_like(id):
     db_sess = db_session.create_session()
-    if form.validate_on_submit():
-        dep = Department(
-            title=form.title.data,
-            chief=form.chief.data,
-            members=form.members.data,
-            email=form.email.data
-        )
-        db_sess.add(dep)
+    anecdot = db_sess.query(Anecdotiy).filter(Anecdotiy.id == id).first()
+    likes = anecdot.users_likes.split(';')
+    dislikes = anecdot.users_dislikes.split(';')
+    if (str(current_user.id) not in likes) and (str(current_user.id) not in dislikes):
+        anecdot.likes += 1
+        anecdot.rating += 1
+        anecdot.creator.rating += 1
+        likes.append(str(current_user.id))
+        likes = ';'.join(likes)
+        anecdot.users_likes = likes
         db_sess.commit()
-        return redirect('/departments')
-    return render_template('create_department.html', title='Добавление департамента', form=form)
-
-
-@app.route('/editdepartment/<int:id>', methods=['GET', 'POST'])
-def edit_dep(id):
-    form = EditDepartment()
-    db_sess = db_session.create_session()
-    if db_sess.query(Department).filter(id == Department.id).first():
-        dep = db_sess.query(Department).filter(id == Department.id).first()
-        if form.validate_on_submit():
-            print(current_user.id)
-            if current_user.id == 1 or current_user.id == dep.chief:
-                dep.title = form.title.data
-                dep.members = form.members.data
-                dep.email = form.email.data
-                print(dep)
-                db_sess.commit()
-                return redirect('/departments')
-            else:
-                return render_template('edit_department.html', title='Изменение', form=form,
-                                       message='У пользователя нет доступа')
-
-        form.title.data = dep.title
-        form.members.data = dep.members
-        form.email.data = dep.email
-        return render_template('edit_department.html', title='Изменение', form=form)
+        return redirect('/')
+    elif str(current_user.id) in dislikes:
+        anecdot.likes += 1
+        anecdot.rating += 2
+        anecdot.creator.rating += 2
+        anecdot.dislikes -= 1
+        del dislikes[dislikes.index(str(current_user.id))]
+        likes.append(str(current_user.id))
+        likes = ';'.join(likes)
+        dislikes = ';'.join(dislikes)
+        anecdot.users_likes = likes
+        anecdot.users_dislikes = dislikes
+        db_sess.commit()
+        return redirect('/')
     else:
-        abort(404)
+        return redirect('/')
+
+
+@app.route('/adddislike/<int:id>')
+def put_dislike(id):
+    db_sess = db_session.create_session()
+    anecdot = db_sess.query(Anecdotiy).filter(Anecdotiy.id == id).first()
+    likes = anecdot.users_likes.split(';')
+    dislikes = anecdot.users_dislikes.split(';')
+    if (str(current_user.id) not in likes) and (str(current_user.id) not in dislikes):
+        anecdot.dislikes += 1
+        anecdot.rating -= 1
+        anecdot.creator.rating -= 1
+        dislikes.append(str(current_user.id))
+        dislikes = ';'.join(dislikes)
+        anecdot.users_dislikes = dislikes
+        db_sess.commit()
+        return redirect('/')
+    elif str(current_user.id) in likes:
+        anecdot.likes -= 1
+        anecdot.creator.rating -= 2
+        anecdot.rating -= 2
+        anecdot.dislikes += 1
+        del likes[likes.index(str(current_user.id))]
+        dislikes.append(str(current_user.id))
+        likes = ';'.join(likes)
+        dislikes = ';'.join(dislikes)
+        anecdot.users_likes = likes
+        anecdot.users_dislikes = dislikes
+        db_sess.commit()
+        return redirect('/')
+    else:
+        return redirect('/')
 
 
 @app.route('/main')
 def all_anec():
     db_sess = db_session.create_session()
-    return render_template('anecdotiy.html', title='Все анекдоты', anecdotiy=db_sess.query(Anecdotiy).all())
+    anecdoties = db_sess.query(Anecdotiy).all()
+    texts = []
+    for anecdot in anecdoties:
+        text = anecdot.text.split(';')
+        texts.append(text)
+    return render_template('anecdotiy.html', title='Все анекдоты', anecdotiy=anecdoties, texts=texts)
 
 
 if __name__ == '__main__':

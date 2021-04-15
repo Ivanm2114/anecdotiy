@@ -15,7 +15,9 @@ class Anecdotiy(SqlAlchemyBase, SerializerMixin):
     author = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('Users.id'))
     rating = sqlalchemy.Column(sqlalchemy.Integer, default=0)
     likes = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    users_likes = sqlalchemy.Column(sqlalchemy.String, default='')
     dislikes = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    users_dislikes = sqlalchemy.Column(sqlalchemy.String, default='')
 
     creator = orm.relation('User')
     categories = orm.relation("Genre",

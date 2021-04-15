@@ -85,6 +85,10 @@ a.btn-success:hover{
     border-color: #72521a;
 }
 
+a.login-text {
+color: black;
+
+}
 
 p {
         margin-top: auto;
@@ -140,6 +144,7 @@ a {
 }
 
 a.btn-danger {
+    padding: 10px;
     display: table-cell;
 }
 

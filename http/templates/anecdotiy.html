@@ -24,8 +24,9 @@
 </div>
 {% endif %}
 <div class="space" style="text-align: left;">
-    <div>
-        {{anecdot.text}}
+    <div>{%for line in texts[loop.index0]%}
+        {{line}}<br>
+        {%endfor%}
     </div>
 </div>
 <div class='line'>

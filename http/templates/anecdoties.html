@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="buttons" style="margin-left: -36%;">
+    <a href="/departments" class="btn btn-success" style="display: table-cell;">
+        Департаменты
+    </a>
+</div>
+<h2>Work logs</h2>
+<div class="space">
+    <a href="/addjob" class="btn btn-success" style="display: table-cell;">
+        Добавить
+    </a>
+    {% for job in jobs %}
+    <div class="actionLabel" >
+    <h3>Action {{loop.index}}</h3>
+    {% if current_user.is_authenticated and (current_user.id == 1 or current_user.id == job.team_leader)%}
+        <a href="/editjob/{{ job.id}}" class="btn btn-warning">
+            Изменить
+        </a>
+        <a href="/deletejob/{{ job.id }}" class="btn btn-danger" style="margin-left: 5px">
+            Удалить
+        </a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}
