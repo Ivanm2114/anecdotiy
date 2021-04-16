@@ -1,1 +1,1 @@
-web: python sqlalchemy_app.py
+web: python main.py
