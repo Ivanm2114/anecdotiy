@@ -1,4 +1,6 @@
 import datetime
+import os
+
 from flask import Flask, request, render_template
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.exceptions import abort
@@ -380,4 +382,5 @@ if __name__ == '__main__':
     db_session.global_init('db/kvn.db')
     app.jinja_env.auto_reload = True
     app.config['TEMPLATES_AUTO_RELOAD'] = True
-    app.run(port=5000, host='127.0.0.1')
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
