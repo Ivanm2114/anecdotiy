@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% if current_user.admin %}
 <a href="/addanecdot" class="btn btn-success" style="display: table-cell;">
     Добавить анекдот
 </a>
-{% endif%}
 {% for anecdot in anecdotiy %}
 <div class='gather'>
 <div class="line">
@@ -13,7 +11,7 @@
 Анекдот номер {{anecdot.id}} от пользователя {{anecdot.creator.name}} {{anecdot.creator.surname}}</div>
 
 </div>
-{% if current_user.is_authenticated and (current_user.id == 1 or current_user.id == job.team_leader)%}
+{% if current_user.is_authenticated and (current_user.id == 1 or current_user.id == anecdot.author)%}
 <div class='line'>
 <a href="/editanecdot/{{anecdot.id}}"  style='margin-right: 5px;' class="btn btn-warning">
     Изменить

@@ -11,7 +11,7 @@
             integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
             crossorigin="anonymous"></script>
     <title>{{ title }}</title>
-    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 <header style="height:70px; width: auto;">
     <table width="100%" height=70>
@@ -21,8 +21,9 @@
             </td>
             {%  if current_user.is_authenticated %}
             <td style="text-align: left; vertical-align: initial;">
-                <a class="btn btn-primary " style="margin-top: 15px; margin-right: 100px;" href="/categories">Категории</a>
-                <a class="btn btn-primary " style="margin-top: 15px;" href="/users_list">Рейтинг пользователей</a>
+                <a class="btn btn-primary " style="margin-top: 15px; margin-right: 50px;" href="/">Все анекдоты</a>
+                <a class="btn btn-primary " style="margin-top: 15px; margin-right: 50px;" href="/categories">Категории</a>
+                <a class="btn btn-primary " style="margin-top: 15px;" href="/rating">Рейтинг пользователей</a>
             </td>
             {% endif %}
             <td style="text-align: right; padding-right: 5px;">

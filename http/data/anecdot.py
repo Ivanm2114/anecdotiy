@@ -25,4 +25,4 @@ class Anecdotiy(SqlAlchemyBase, SerializerMixin):
                               backref="Anecdotiy")
 
     def __repr__(self):
-        return f'<Anecdot> {self.name}'
+        return f'<Anecdot> {self.id}'
