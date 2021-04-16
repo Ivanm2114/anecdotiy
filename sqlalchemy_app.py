@@ -1,10 +1,6 @@
 import datetime
-import requests
-import os
-import sys
-from flask import Flask, request, render_template, make_response, session, url_for
+from flask import Flask, request, render_template
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from requests import get
 from werkzeug.exceptions import abort
 from werkzeug.utils import redirect
 from data import db_session
