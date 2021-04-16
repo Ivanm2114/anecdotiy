@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Рейтинг пользователей</h3>
+<div class="form">
+<table border="1" width="1000" cellpadding="5" style="margin-bottom: 10px; margin-top: 5px;">
+    <tr>
+        <th>Имя Фамилия</th>
+        <th>Рейтинг</th>
+    </tr>
+    {% for user in users%}
+    {% if loop.index == 1 %}
+    <tr style="background-color: gold;">
+        <th>{{user.name}} {{user.surname}}</th>
+        <th>{{user.rating}}</th>
+    </tr>
+    {% elif loop.index == 2%}
+    <tr style="background-color: silver;">
+        <th>{{user.name}} {{user.surname}}</th>
+        <th>{{user.rating}}</th>
+    </tr>
+    {% elif loop.index == 3%}
+    <tr style="background-color: #cd7f32;">
+        <th>{{user.name}} {{user.surname}}</th>
+        <th>{{user.rating}}</th>
+    </tr>
+    {%else%}
+    <tr>
+        <th>{{user.name}} {{user.surname}}</th>
+        <th>{{user.rating}}</th>
+    </tr>
+    {%endif%}
+    {%endfor%}
+</table>
+</div>
+{% endblock %}

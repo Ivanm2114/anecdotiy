@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if current_user.admin%}
+<a href="/addcategory" class="btn btn-success" style="display: table-cell;">
+    Добавить категорию
+</a>
+{%endif%}
+{% for category in categories %}
+<a href="viewcategory/{{category.id}}">
+<div class="gather" style="text-align: center;">
+{{category.name}}
+</div>
+</a>
+{% endfor %}
+{% endblock %}

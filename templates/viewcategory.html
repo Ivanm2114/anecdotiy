@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{category.name}}</h2>
+<link rel="stylesheet" type="text/css" href="./static/css/style.css">
+{% if current_user.admin %}
+<div class="line">
+<a href="/addanecdotto/{{category.id}}" style='margin-right: 10px;padding-top: 10px' class="btn btn-success" style="display: table-cell;">
+    Добавить анекдот в категорию
+</a>
+<a href="/editcategory/{{category.id}}" class="btn btn-success" style="display: table-cell;margin-right: 10px; padding-top: 10px;">
+    Изменить категорию
+</a>
+<a href="/deletecategory/{{category.id}}" class="btn btn-danger" style="display: table-cell;">
+    Удалить категорию
+</a>
+</div>
+{% endif %}
+{% if anecdoties %}
+{% for anecdot in anecdoties %}
+<div class='gather'>
+<div class="line">
+    <div>
+Анекдот номер {{anecdot.id}} от пользователя {{anecdot.creator.name}} {{anecdot.creator.surname}}</div>
+</div>
+<div class="space" style="text-align: left;">
+    <div>{%for line in texts[loop.index0]%}
+        {{line}}<br>
+        {%endfor%}
+    </div>
+</div>
+<div class='line'>
+<a href="/addlikecat/{{anecdot.id}}/{{category.id}}" style='margin-right: 3px;' class="btn btn-success" style="display: table-cell;">
+    <img src="/static/data/like.png">
+</a>
+<div style="margin-right: 50px;">
+    {{anecdot.likes}}
+</div>
+<a href="/adddislikecat/{{anecdot.id}}/{{category.id}}" style='margin-right: 3px;' class="btn btn-success" style="display: table-cell;">
+    <img src='/static/data/dislike.png'>
+</a>
+<div>
+    {{anecdot.dislikes}}
+</div>
+</div>
+</div>
+{% endfor %}
+{% else %}
+<div class="form" style="margin-top: 10px;">
+<h3 style="text-align: center">Категория находится на этапе подготовки</h3>
+</div>
+{%endif%}
+{% endblock %}
