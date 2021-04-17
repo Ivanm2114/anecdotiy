@@ -379,7 +379,6 @@ def rating():
 
 
 if __name__ == '__main__':
-    db_session.global_init('db/kvn.db')
     app.jinja_env.auto_reload = True
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run(port=5000, host='127.0.0.1')
