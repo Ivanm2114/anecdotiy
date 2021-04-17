@@ -19,7 +19,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(
 )
 login_manager = LoginManager()
 login_manager.init_app(app)
-
+db_session.global_init('db/kvn.db')
 
 @app.route('/')
 def f():
@@ -379,7 +379,6 @@ def rating():
 
 
 if __name__ == '__main__':
-    db_session.global_init('db/kvn.db')
     app.jinja_env.auto_reload = True
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     port = int(os.environ.get("PORT", 5000))
