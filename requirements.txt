@@ -1,5 +1,0 @@
-flask
-flask-login
-sqlalchemy
-SQLAlchemy-serializer
-flask_wtf

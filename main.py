@@ -21,6 +21,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 db_session.global_init('db/kvn.db')
 
+
 @app.route('/')
 def f():
     if current_user.is_authenticated:
